@@ -215,7 +215,6 @@
       //This is for the tooltip that pops up to explain the drawing function
       var tooltip = document.getElementById("drawTooltip");
       view.ui.add("drawTooltip", "manual");
-      
      //Load in the feature layers used for querying habitat/species parameter
       var GulfLayer = new FeatureLayer ({//Gulf ccap layer
         url: "https://services2.arcgis.com/C8EMgrsFcRFL6LrL/arcgis/rest/services/ccap_2016_GOM_WGS_EFH/FeatureServer"
@@ -401,7 +400,7 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
            });
         return true;//Functions done
       }//End of query table
-    
+
     function queryFeatureLayerView(shape, spatialRelationship, sqlExpression){
         infoWindow.title = "Searching for an EFH";//Something to show while loading
         infoWindow.content = "Please wait a moment..."; //Description while loading
@@ -425,6 +424,7 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
           returnGeometry: false,
           where: sqlExpression
         }; //Create the query for layers
+    
         GulfLayer.queryFeatures(habitatQuery).then(function(result) {
                     result.features.forEach(function(feature){
                       councilName = "the Gulf";
@@ -447,6 +447,7 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
                       if(addHabitat && resultHabitats.length != 0){resultHabitats.push(feature.attributes.grid_name);}
                       stateRow = feature.attributes.State;
                     }); //end of gulf ccap results query
+                    
                     SAtlanticLayer.queryFeatures(habitatQuery).then(function(result) {
                             result.features.forEach(function(feature){
                               if(councilName == "the Gulf"){
@@ -502,10 +503,22 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
                         
                       });//End of Salinity bound query
                       
-                    });//End of South atlantic ccap query      
+                    }).catch( function(err) {
+          console.log("South Atlantic Server issue" + err);
+           infoWindow.visible = true;
+          infoWindow.title = "An error occured.";
+          infoWindow.content = "It seems an error occured when performing your search. This may be due to an server issue on our end. Please contact your local EFH coordinator of the problem and check back in a few days. Sorry for the inconvenience.";
+        });//End of South atlantic ccap query      
+        }).catch( function(err) {
+          console.log("Gulf server issue" + err);
+           infoWindow.visible = true;
+          infoWindow.title = "An error occured.";
+          infoWindow.content = "It seems an error occured when performing your search. This may be due to an server issue on our end. Please contact your local EFH coordinator of the problem and check back in a few days. Sorry for the inconvenience.";
         });//End of Gulf ccap query
+      
       return true;
       }//End of query feature function
+     
     
     function createPolygonGraphic(vertices, polyComplete){
       view.graphics.removeAll();
@@ -577,9 +590,9 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
         reportFile.click(); //Activates on click
       }
 
+      
       //When the user clicks on the map
       view.on("click", function(event){
-        
         infoWindow.location = event.mapPoint; //Location of the popup window is where they clicked
         if(!queryPolygon){ //If they aren't drawing a project area
           view.graphics.removeAll(); //Remove any previous project area polygons
@@ -590,9 +603,11 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
           else{
              infoWindow.visible = false;
           }
+          
         }
         
       });
+        
     
       searchWidget.on("search-start", function(){ //If they're using the search bar
         infoWindow.visible = false; //First set any visible pop up window to invisible
@@ -649,9 +664,8 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
             drawing = false;
           }
     };
-    
+     
     });
-    
   </script>
 </head>
 <body>
