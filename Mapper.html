@@ -507,13 +507,13 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
           console.log("South Atlantic Server issue" + err);
            infoWindow.visible = true;
           infoWindow.title = "An error occured.";
-          infoWindow.content = "It seems an error occured when performing your search. This may be due to an server issue on our end. Please contact your local EFH coordinator of the problem and check back in a few days. Sorry for the inconvenience.";
+          infoWindow.content = "It seems an error occured when performing your search. This may be due to an server issue on our end. Please contact <a href='https://www.fisheries.noaa.gov/contact/jennifer-leo-phd' target='_blank'>the project lead</a> of the problem and check back in a few days. Sorry for the inconvenience.";
         });//End of South atlantic ccap query      
         }).catch( function(err) {
           console.log("Gulf server issue" + err);
            infoWindow.visible = true;
           infoWindow.title = "An error occured.";
-          infoWindow.content = "It seems an error occured when performing your search. This may be due to an server issue on our end. Please contact your local EFH coordinator of the problem and check back in a few days. Sorry for the inconvenience.";
+          infoWindow.content = "It seems an error occured when performing your search. This may be due to an server issue on our end. Please contact <a href='https://www.fisheries.noaa.gov/contact/jennifer-leo-phd' target='_blank'>the project lead</a> of the problem and check back in a few days. Sorry for the inconvenience.";
         });//End of Gulf ccap query
       
       return true;
