@@ -347,7 +347,7 @@
                     windowText.push("<p>A probable essential fishery habitat was found within " + councilName + " fishery management zone. A possible list of species is shown below. Please contact an EFH consultant. To view further information on life stages, depth ranges, and comments, please use the Download CSV button below to receive a table of information. Contact your local EFH coordinator " + contactInfo + "here</a>.</p>");
                   }//If the selection is within that maybe zone for the salinity bound
                   else{
-                    windowText.push("<p>An essential fishery habitat was found within " + councilName + " fishery management zone. A list of species is shown below. To view further information on life stages, depth ranges, and comments, please use the Download CSV button below to receive a table of information. Contact your local EFH coordinator " + contactInfo + "here</a>.</p>");
+                    windowText.push("<p>An essential fishery habitat was found within " + councilName + " fishery management zone. To view further information on life stages, depth ranges, and comments, please use the Download CSV button below to receive a table of information. Contact your local EFH coordinator " + contactInfo + "here</a>.</p>");
                   }//Else the selection is within the definitely zone for the salinity bound
                   //Put the wording in for the habitats found list
                   console.log(contactInfo);
@@ -355,8 +355,9 @@
                   //Heading for the species list
                   if(councilName == "the Gulf"){
                      windowText.push("<p> Potential species found in these habitats and states: </p>");
-                     infoWindow.actions = [downloadReportAction]; //Add the download button
+                     
                   }
+                  infoWindow.actions = [downloadReportAction]; //Add the download button
                   result.features.forEach(function(feature){
                     if(feature.attributes.common_name != name[name.length-1]){
                       name.push(feature.attributes.common_name);
@@ -701,8 +702,7 @@ reportText.push(feature.attributes.Species+","+feature.attributes.common_name+",
     //Toggles showing the content of the instructional menu
     function dropDownFunction() {
       document.getElementById("aboutMenu").classList.toggle("show");
-      /*<br><a href="https://arcg.is/0iSaOD" target='_blank'>Click here to send us feedback!</a>*/
-      //Just holding this here.
+      
     }
     </script>
   </div>
